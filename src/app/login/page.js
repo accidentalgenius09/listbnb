@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useTransition } from "react";
+import React, { useEffect, useTransition } from "react";
 import { Form, Button, Row, Col, Container, InputGroup } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -14,12 +14,11 @@ import { toast } from "react-toastify";
 export default function Login() {
   const router = useRouter();
   const dispatch = useDispatch();
+  const accessToken = localStorage.getItem("accessToken");
   const [isPending, startTransition] = useTransition();
-  const [accessToken, setAccessToken] = useState("");
-  
-  
+
+
   useEffect(() => {
-    setAccessToken(localStorage.getItem("accessToken"));
     if (!accessToken) {
       router.push("/login");
     }

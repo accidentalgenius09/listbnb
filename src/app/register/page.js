@@ -21,13 +21,12 @@ export default function Register() {
   const toggleConfirmPasswordVisibility = () =>
     setShowConfirmPassword(!showConfirmPassword);
 
-  const [accessToken, setAccessToken] = useState("");
+  const accessToken = localStorage.getItem("accessToken");
   useEffect(() => {
-    setAccessToken(localStorage.getItem("accessToken"));
     if (!accessToken) {
       route.push("/register");
     }
-  }, [accessToken]);
+  },[accessToken]);
 
   // Yup validation schema
   const validationSchema = Yup.object().shape({

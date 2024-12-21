@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useTransition } from "react";
+import React, { useTransition } from "react";
 import { Form, Container, Row, Col } from "react-bootstrap";
 import styles from "./styles.module.scss";
 import { useFormik } from "formik";
@@ -15,10 +15,7 @@ function PostAds() {
   const [isPending, startTransition] = useTransition();
   const dispatch = useDispatch();
   const route = useRouter();
-  const [accessToken, setAccessToken] = useState("");
-  useEffect(() => {
-    setAccessToken(localStorage.getItem("accessToken"));
-  }, []);
+  const accessToken = localStorage.getItem("accessToken");
 
   const validationSchema = Yup.object({
     title: Yup.string().required("Ad Title is required"),
@@ -56,9 +53,10 @@ function PostAds() {
           toast(
             "Profile Created Successfully. Kindly wait while you redirect to your Profile"
           );
-          dispatch(authActions.setActiveTab("ads"));
+          route.push("/profile");
         }
       });
+      console.log("Form Data:", values);
     },
   });
 

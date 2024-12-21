@@ -11,10 +11,9 @@ export default function Home() {
   const [hoveredCardId, setHoveredCardId] = useState("");
   const [selectedView, setSelectedView] = useState("gridView");
   const [adData, setAdData] = useState([]);
-  const [accessToken, setAccessToken] = useState("");
-  
+  const accessToken = localStorage.getItem("accessToken");
+
   useEffect(() => {
-    setAccessToken(localStorage.getItem("accessToken"));
     if (accessToken) {
       const gu = async () => {
         await getAd(accessToken)
@@ -148,7 +147,7 @@ export default function Home() {
                         <Card.Title className="mt-3">{item.title}</Card.Title>
                         <div className="d-flex align-items-center justify-content-between mt-3">
                           <Card.Title className={`${styles.textColor} mt-3`}>
-                            {item.price}
+                            ${item.price}
                           </Card.Title>
                           <Image
                             src={
