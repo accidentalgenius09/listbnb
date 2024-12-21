@@ -1,0 +1,73 @@
+// Main container with border radius
+.loginContainer {
+  background: #fff;
+  border: 1;
+  height: 2%;
+  border-color: #dfdfdf;
+  border-radius: 20px; // Border radius for the entire container
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+  .mainColor {
+    color: var(--primary-color);
+  }
+  .inputForm {
+    border-radius: 14;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-right: 0;
+    &:focus {
+      outline: none;
+      box-shadow: none;
+      border-color: #e1e1e1; // Optional: Highlight with the theme color
+    }
+  }
+  .inputBox {
+    background-color: #fff;
+    border-left: 0;
+    border-radius: 14;
+  }
+  .formContainer {
+    width: 85%;
+  }
+
+  .loginForm {
+    text-align: left; // Align text to the left for the form fields
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .registerSection {
+    background-color: rgba(245, 9, 100, 0.04);
+    border-radius: 15px;
+    padding: 40px;
+    text-align: center;
+
+    .registerCard {
+      h3 {
+        font-weight: bold;
+      }
+
+      p {
+        color: #6c757d;
+        margin: 10px 0 20px;
+      }
+
+      .btnRegister {
+        background-color: #ff0057;
+        border: none;
+        color: #fff;
+
+        &:hover {
+          background-color: #e6004f;
+        }
+      }
+    }
+  }
+  .btnPink {
+    background-color: var(--primary-color);
+    border-radius: 25;
+    height: 50;
+    border: 0;
+  }
+}

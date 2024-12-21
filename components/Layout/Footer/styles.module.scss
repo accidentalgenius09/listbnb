@@ -1,0 +1,20 @@
+.footerMain {
+  padding: 0.88rem 0;
+  width: 100%;
+  margin: auto;
+  bottom: 0;
+  background-color: #212121;
+  border-top: 0.031rem solid #212121;
+  width: 100%;
+  z-index: 1021;
+  @media screen and (min-width: 768px) {
+    padding: 1rem 0;
+  }
+  .logo {
+    margin-right: 2.75rem;
+  }
+  .copyright {
+    color: white;
+    opacity: 60%;
+  }
+}

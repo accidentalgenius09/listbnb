@@ -1,0 +1,59 @@
+.profileText {
+  color: #95999d;
+}
+.cardFormat {
+  border-radius: 12;
+  border: 0;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.profileImage {
+  border-radius: 50%;
+  width: 100%;
+  max-width: 80px;
+}
+.editprof {
+  border: 1px solid #d0d5dd;
+  background-color: #fff;
+  color: #667085;
+  padding: 2%;
+  border-radius: 44;
+  padding: 10%;
+  &:hover {
+    background-color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    color: #fff;
+  }
+}
+
+.adImage {
+  border-radius: 5px;
+  width: 100%;
+  max-width: 100%;
+}
+.viewAdSection {
+  border: 1px solid #d0d5dd;
+  background-color: #fff;
+  color: #667085;
+  padding: 3% 5%;
+  border-radius: 44;
+
+  &:hover {
+    border: 1px solid var(--primary-color);
+    background-color: var(--primary-color);
+    color: #fff;
+  }
+}
+.editAdSection {
+  border: 1px solid #d0d5dd;
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 3% 5%;
+  border-radius: 44;
+
+  &:hover {
+    border: 1px solid var(--primary-color);
+    background-color: white;
+    color: var(--primary-color);
+  }
+}

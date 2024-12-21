@@ -1,95 +1,174 @@
+"use client";
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col, Card, Badge, Button } from "react-bootstrap";
+import styles from "./page.module.scss";
 import Image from "next/image";
-import styles from "./page.module.css";
+import { getAd } from "../../actions";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const route = useRouter();
+  const [hoveredCardId, setHoveredCardId] = useState("");
+  const [selectedView, setSelectedView] = useState("gridView");
+  const [adData, setAdData] = useState([]);
+  const accessToken = localStorage.getItem("accessToken");
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+  useEffect(() => {
+    if (accessToken) {
+      const gu = async () => {
+        await getAd(accessToken)
+          .then((res) => {
+            setAdData(res);
+          })
+          .catch(async (error) => {
+            route.push("/");
+          });
+      };
+      gu();
+    }
+  }, [accessToken]);
+
+  return (
+    <Container fluid className={styles.homepage}>
+      {/* Hero Section */}
+      <Row className={`${styles.heroSection} text-center mb-5`}>
+        <Col md={12}>
           <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            src="/images/Placeholder.png"
+            width={1586}
+            height={620}
+            alt="Hero"
+            className="img-fluid"
           />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        </Col>
+      </Row>
+
+      {/* Recommendations Section */}
+      {adData?.length > 0 && (
+        <Row className={`${styles.recommendationsSection} mb-5`}>
+          <Col xs={12}>
+            <h6 className="text-center text-uppercase">What's New</h6>
+            <h1 className="text-center mb-4">Fresh Recommendations</h1>
+            <div className="d-flex justify-content-between me-3">
+              <p className="text-muted">
+                <strong>
+                  {" "}
+                  <span style={{ color: "#f50964" }}>
+                    {adData?.length}
+                  </span>{" "}
+                  {adData?.length === 1 ? "Item" : "Items"}
+                </strong>
+              </p>
+              <div className="mb-2">
+                <Image
+                  width={40}
+                  height={40}
+                  src={
+                    selectedView === "gridView"
+                      ? "/images/gridViewSelet.png"
+                      : "/images/gridView.png"
+                  }
+                  alt="grid view"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setSelectedView("gridView")}
+                />
+                <Image
+                  width={40}
+                  height={40}
+                  src={
+                    selectedView === "colView"
+                      ? "/images/colViewSelect.png"
+                      : "/images/colView.png"
+                  }
+                  alt="grid view"
+                  className="mx-2"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setSelectedView("colView")}
+                />
+              </div>
+            </div>
+          </Col>
+          <Row>
+            {adData?.map((item) => (
+              <React.Fragment key={item.id}>
+                {selectedView === "gridView" ? (
+                  <Col xs={12} sm={6} md={4} lg={3} className="mb-4">
+                    <Card
+                      onMouseEnter={() => setHoveredCardId(item.id)}
+                      onMouseLeave={() => setHoveredCardId(null)}
+                      className={`${styles.recommendationCard}`}
+                    >
+                      <Button className={`${styles.badgeEdit}`}>Edit Ad</Button>
+                      <Card.Img
+                        src={item.image}
+                        alt={item.title}
+                        className={`${styles.cardImage}`}
+                      />
+                      <Card.Body>
+                        <Card.Text className="mb-2 text-muted">
+                          {item.location} • {item.time}
+                        </Card.Text>
+                        <Card.Title className="mt-3">{item.title}</Card.Title>
+                        <div className="d-flex align-items-center justify-content-between mt-3">
+                          <Card.Title className={`${styles.textColor} mt-3`}>
+                            {item.price}
+                          </Card.Title>
+                          <Image
+                            src={
+                              hoveredCardId === item.id
+                                ? "/images/Link2.png"
+                                : "/images/Link.png"
+                            }
+                            alt="eye"
+                            height={46}
+                            width={46}
+                          />
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ) : (
+                  <Row xs={12} sm={6} md={4} lg={1} className="mb-4">
+                    <Card
+                      onMouseEnter={() => setHoveredCardId(item.id)}
+                      onMouseLeave={() => setHoveredCardId(null)}
+                      className={`${styles.recommendationCard}`}
+                    >
+                      <Button className={`${styles.badgeEdit}`}>Edit Ad</Button>
+                      <Card.Img
+                        src={item.image}
+                        alt={item.title}
+                        className={`${styles.cardImage}`}
+                      />
+                      <Card.Body>
+                        <Card.Text className="mb-2 text-muted">
+                          {item.location} • {item.time}
+                        </Card.Text>
+                        <Card.Title className="mt-3">{item.title}</Card.Title>
+                        <div className="d-flex align-items-center justify-content-between mt-3">
+                          <Card.Title className={`${styles.textColor} mt-3`}>
+                            {item.price}
+                          </Card.Title>
+                          <Image
+                            src={
+                              hoveredCardId === item.id
+                                ? "/images/Link2.png"
+                                : "/images/Link.png"
+                            }
+                            alt="eye"
+                            height={46}
+                            width={46}
+                          />
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </Row>
+                )}
+              </React.Fragment>
+            ))}
+          </Row>
+        </Row>
+      )}
+    </Container>
   );
 }

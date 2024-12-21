@@ -1,6 +1,17 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { Plus_Jakarta_Sans, Geist, Geist_Mono } from "next/font/google"; // Import the desired font
+import "../../styles/globals.scss";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Header from "../../components/Layout/Header";
+import Footer from "../../components/Layout/Footer";
+import StoreProvider from "./StoreProvider";
 
+// Use next/font/google to import Plus Jakarta Sans
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta-sans",
+  subsets: ["latin"],
+});
+
+// Use Geist and Geist_Mono as needed
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -19,8 +30,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+      <body
+        className={`${plusJakartaSans.variable} ${geistSans.variable} ${geistMono.variable}`}
+      >
+        <StoreProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </StoreProvider>
       </body>
     </html>
   );

@@ -1,0 +1,17 @@
+.headerNav {
+  padding: 0.88rem 0;
+  width: 100%;
+  margin: auto;
+  position: fixed;
+  top: 0;
+  background-color: white;
+  border-bottom: 0.031rem solid #eff0f0;
+  width: 100%;
+  z-index: 1021;
+  @media screen and (min-width: 768px) {
+    padding: 1rem 0;
+  }
+  .logo {
+    margin-right: 2.75rem;
+  }
+}

@@ -1,6 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary-color: #f50964;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,7 +22,7 @@ body {
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -39,4 +42,10 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+main {
+  margin-top: 80px; /* Space below Header */
+  margin-bottom: 60px; /* Space above Footer */
+  padding: 20px;
 }

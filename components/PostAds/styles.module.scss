@@ -1,0 +1,26 @@
+.cardFormat {
+  border-radius: 12;
+  border: 0;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+  .mainColor {
+    color: var(--primary-color);
+  }
+
+  .inputForm {
+    border-radius: 14;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .inputDesc {
+    border-radius: 14;
+    padding-top: 1rem;
+    padding-bottom: 6rem;
+  }
+  .btnPink {
+    background-color: var(--primary-color);
+    border-radius: 25;
+    height: 50;
+    border: 0;
+  }
+}

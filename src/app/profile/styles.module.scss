@@ -1,0 +1,53 @@
+.profileText {
+  color: #95999d;
+}
+.textcolor {
+  color: #667085;
+}
+.profileContainer {
+  padding: 20px;
+
+  .sidebar {
+    background: #fff;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding: 20px;
+    border-radius: 12;
+    min-height: 100vh;
+
+    .navList {
+      list-style: none;
+      padding: 0;
+
+      li {
+        padding: 10px 40px;
+        cursor: pointer;
+        margin-top: 4%;
+
+        &.active {
+          background: #000;
+          color: #fff;
+          border-radius: 44;
+          padding: 5% 40px;
+
+          &:hover {
+            color: #667085;
+          }
+        }
+
+        &.highlight {
+          color: #ff4081;
+        }
+        &.postAd {
+          font-weight: bold;
+        }
+
+        &:hover {
+          background: #e9ecef;
+          border-radius: 5px;
+          border-radius: 44;
+          padding: 5% 40px;
+        }
+      }
+    }
+  }
+}
