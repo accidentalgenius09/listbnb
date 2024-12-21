@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserProfile } from "../../actions";
 import { authActions } from "../../store/authSlice";
@@ -11,12 +11,11 @@ function Login() {
   const route = useRouter();
   const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.auth);
-  const accessToken = localStorage.getItem("accessToken");
-  const searchParams = useSearchParams();
-  const ts = searchParams.get("ts") || "";
-
-
+  const [accessToken, setAccessToken] = useState("");
+  
+  
   function handleLoginClick() {
+    setAccessToken(localStorage.getItem("accessToken"));
     if (accessToken) {
       dispatch(authActions.setActiveTab("account")); // Set active tab
       route.push("/profile"); // Navigate to profile page
@@ -38,7 +37,7 @@ function Login() {
       };
       gu();
     }
-  }, [accessToken, route, ts]);
+  }, [accessToken, route]);
 
   return (
     <button

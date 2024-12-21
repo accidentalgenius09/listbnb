@@ -21,8 +21,9 @@ export default function Register() {
   const toggleConfirmPasswordVisibility = () =>
     setShowConfirmPassword(!showConfirmPassword);
 
-  const accessToken = localStorage.getItem("accessToken");
+  const [accessToken, setAccessToken] = useState("");
   useEffect(() => {
+    setAccessToken(localStorage.getItem("accessToken"));
     if (!accessToken) {
       route.push("/register");
     }

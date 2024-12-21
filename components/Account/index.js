@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState, useTransition } from "react";
 import styles from "./styles.module.scss";
 import Image from "next/image";
@@ -16,12 +17,13 @@ function Account({ activeLink = "" }) {
   const { userData } = useSelector((state) => state.auth);
   const [adData, setAdData] = useState([]);
   const activeTab = useSelector((state) => state.auth.activeTab);
-  const accessToken = localStorage.getItem("accessToken");
   const pathName = usePathname();
   const searchParams = useSearchParams();
   const ts = searchParams.get("ts") || "";
+  const [accessToken, setAccessToken] = useState("");
 
   useEffect(() => {
+    setAccessToken(localStorage.getItem("accessToken"));
     if (accessToken) {
       const gu = async () => {
         await getUserProfile(accessToken)
@@ -41,7 +43,7 @@ function Account({ activeLink = "" }) {
       };
       gu();
     }
-  }, [accessToken, activeTab, ts]);
+  }, [activeTab, ts]);
   function handleEditClick() {
     dispatch(authActions.setActiveTab("profile"));
   }

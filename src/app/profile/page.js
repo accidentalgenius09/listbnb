@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import Image from "next/image";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
@@ -14,14 +14,17 @@ import moment from "moment";
 function Profile() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const accessToken = localStorage.getItem("accessToken");
+  const [accessToken, setAccessToken] = useState("");
+  useEffect(() => {
+    setAccessToken(localStorage.getItem("accessToken"));
+  }, []);
   const activeTab = useSelector((state) => state.auth.activeTab) || "account";
   const handleLinkClick = (linkName) => {
     if (linkName === "logout") {
       localStorage.removeItem("accessToken");
       dispatch(authActions.setAccessToken(""));
       dispatch(authActions.setUserData({}));
-      router.push("/login")
+      router.push("/login");
     } else {
       dispatch(authActions.setActiveTab(linkName)); // Update Redux state
     }
@@ -100,6 +103,7 @@ function Profile() {
           </Col>
 
           {/* Main Content */}
+          <Suspense>
           <Col md={9}>
             {" "}
             {/* Adjust width as needed */}
@@ -115,6 +119,7 @@ function Profile() {
               ""
             )}
           </Col>
+          </Suspense>
         </Row>
       </Container>
     </div>

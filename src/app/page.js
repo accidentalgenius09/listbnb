@@ -11,9 +11,10 @@ export default function Home() {
   const [hoveredCardId, setHoveredCardId] = useState("");
   const [selectedView, setSelectedView] = useState("gridView");
   const [adData, setAdData] = useState([]);
-  const accessToken = localStorage.getItem("accessToken");
-
+  const [accessToken, setAccessToken] = useState("");
+  
   useEffect(() => {
+    setAccessToken(localStorage.getItem("accessToken"));
     if (accessToken) {
       const gu = async () => {
         await getAd(accessToken)

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -8,10 +8,11 @@ import { authActions } from "../../store/authSlice";
 function PostAd() {
   const route = useRouter();
   const dispatch = useDispatch();
-  const accessToken = localStorage.getItem("accessToken");
   const activeTab = useSelector((state) => state.auth.activeTab);
-  
+  const [accessToken, setAccessToken] = useState("");
+
   useEffect(() => {
+    setAccessToken(localStorage.getItem("accessToken"));
     if (!accessToken) {
       route.push("/login");
     }
