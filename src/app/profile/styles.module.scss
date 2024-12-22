@@ -11,7 +11,7 @@
     background: #fff;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     padding: 20px;
-    border-radius: 12;
+    border-radius: 12px;
     min-height: 100vh;
 
     .navList {
@@ -26,7 +26,7 @@
         &.active {
           background: #000;
           color: #fff;
-          border-radius: 44;
+          border-radius: 44px;
           padding: 5% 40px;
 
           &:hover {
@@ -44,7 +44,7 @@
         &:hover {
           background: #e9ecef;
           border-radius: 5px;
-          border-radius: 44;
+          border-radius: 44px;
           padding: 5% 40px;
         }
       }

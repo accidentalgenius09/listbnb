@@ -11,7 +11,7 @@
   }
 
   .recommendationsSection {
-    border-radius: 34;
+    border-radius: 34px;
     h6 {
       color: var(--primary-color);
       font-weight: 600;
@@ -51,7 +51,7 @@
         padding: 0.5rem 1rem;
         font-size: 0.75rem;
         border: 1px solid var(--primary-color);
-        border-radius: 34;
+        border-radius: 34px;
         cursor: pointer;
         z-index: 2;
       }
