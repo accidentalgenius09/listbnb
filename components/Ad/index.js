@@ -8,7 +8,7 @@ import { authActions } from "../../store/authSlice";
 function PostAd() {
   const route = useRouter();
   const dispatch = useDispatch();
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = useSelector((state) => state.auth.accessToken);
   const activeTab = useSelector((state) => state.auth.activeTab);
   
   useEffect(() => {

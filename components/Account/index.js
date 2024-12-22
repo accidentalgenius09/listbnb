@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useTransition } from "react";
 import styles from "./styles.module.scss";
 import Image from "next/image";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/authSlice";
 import { deleteAd, getAd, getUserProfile } from "../../actions";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import moment from "moment";
 
@@ -16,10 +16,23 @@ function Account({ activeLink = "" }) {
   const { userData } = useSelector((state) => state.auth);
   const [adData, setAdData] = useState([]);
   const activeTab = useSelector((state) => state.auth.activeTab);
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = useSelector((state) => state.auth.accessToken);
   const pathName = usePathname();
-  const searchParams = useSearchParams();
-  const ts = searchParams.get("ts") || "";
+
+  const [ts, setTs] = useState("");
+
+  useEffect(() => {
+    const getTsFromUrl = () => {
+      if (typeof window !== "undefined") {
+        const query = new URLSearchParams(window.location.search);
+        console.log(query, "query");
+        return query.get("ts") || "";
+      }
+      return "";
+    };
+    const ts = getTsFromUrl();
+    setTs(ts);
+  }, [pathName, activeTab, ts]);
 
   useEffect(() => {
     if (accessToken) {
@@ -51,9 +64,6 @@ function Account({ activeLink = "" }) {
       if (res?.data === null) {
         toast(res?.error?.message);
       } else {
-        toast(
-          "Profile Created Successfully. Kindly wait while you redirect to your Profile"
-        );
         if (activeTab === "ads") {
           dispatch(authActions.setActiveTab("ads"));
           route.replace(`${pathName}?ts=${moment().unix()}`);

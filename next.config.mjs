@@ -9,6 +9,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "www.imagineonline.store",
       },
+      {
+        protocol: "https",
+        hostname: "letsenhance.io",
+      },
     ],
   },
 };

@@ -14,7 +14,7 @@ import moment from "moment";
 function Profile() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = useSelector((state) => state.auth.accessToken);
   const activeTab = useSelector((state) => state.auth.activeTab) || "account";
   const handleLinkClick = (linkName) => {
     if (linkName === "logout") {

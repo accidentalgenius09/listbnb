@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import styles from "./styles.module.scss";
-import { registerUser } from "../../../actions";
+import { getUserProfile, registerUser } from "../../../actions";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../../store/authSlice";
@@ -21,12 +21,24 @@ export default function Register() {
   const toggleConfirmPasswordVisibility = () =>
     setShowConfirmPassword(!showConfirmPassword);
 
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = useSelector((state) => state.auth.accessToken);
   useEffect(() => {
-    if (!accessToken) {
-      route.push("/register");
+    const jwt = localStorage.getItem("accessToken");
+    if (jwt) {
+      const gu = async () => {
+        await getUserProfile(jwt)
+          .then((res) => {
+            dispatch(authActions.setUserData(res));
+            dispatch(authActions.setAccessToken(jwt));
+            route.push("/profile");
+          })
+          .catch(async (error) => {
+            route.push("/register");
+          });
+      };
+      gu();
     }
-  },[accessToken]);
+  }, [accessToken]);
 
   // Yup validation schema
   const validationSchema = Yup.object().shape({

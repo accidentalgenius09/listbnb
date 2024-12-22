@@ -14,7 +14,7 @@ function MyProfile() {
   const dispatch = useDispatch();
   const [isPending, startTransition] = useTransition();
   const userData = useSelector((state) => state.auth.userData);
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = useSelector((state) => state.auth.accessToken);
   const route = useRouter();
   const validationSchema = Yup.object({
     firstName: Yup.string().required("First Name is required"),
@@ -55,9 +55,6 @@ function MyProfile() {
         if (res?.data === null) {
           toast(res?.error?.message);
         } else {
-          toast(
-            "Profile Created Successfully. Kindly wait while you redirect to your Profile"
-          );
           dispatch(authActions.setUserData(res?.user));
           dispatch(authActions.setActiveTab("account"))
         }

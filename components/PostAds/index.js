@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { postAd } from "../../actions";
 import { toast } from "react-toastify";
 import { authActions } from "../../store/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
 function PostAds() {
@@ -15,7 +15,7 @@ function PostAds() {
   const [isPending, startTransition] = useTransition();
   const dispatch = useDispatch();
   const route = useRouter();
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = useSelector((state) => state.auth.accessToken);
 
   const validationSchema = Yup.object({
     title: Yup.string().required("Ad Title is required"),
@@ -50,13 +50,9 @@ function PostAds() {
         if (res?.data === null) {
           toast(res?.error?.message);
         } else {
-          toast(
-            "Profile Created Successfully. Kindly wait while you redirect to your Profile"
-          );
-          route.push("/profile");
+          dispatch(authActions.setActiveTab("ads"));
         }
       });
-      console.log("Form Data:", values);
     },
   });
 

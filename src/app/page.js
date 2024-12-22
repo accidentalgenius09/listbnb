@@ -5,13 +5,14 @@ import styles from "./page.module.scss";
 import Image from "next/image";
 import { getAd } from "../../actions";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 
 export default function Home() {
   const route = useRouter();
   const [hoveredCardId, setHoveredCardId] = useState("");
   const [selectedView, setSelectedView] = useState("gridView");
   const [adData, setAdData] = useState([]);
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = useSelector((state) => state.auth.accessToken);
 
   useEffect(() => {
     if (accessToken) {

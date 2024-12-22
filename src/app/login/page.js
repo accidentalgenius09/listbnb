@@ -6,23 +6,34 @@ import * as Yup from "yup";
 import styles from "./styles.module.scss";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { userLogin } from "../../../actions";
+import { getUserProfile, userLogin } from "../../../actions";
 import { authActions } from "../../../store/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
 export default function Login() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = useSelector((state) => state.auth.accessToken);
   const [isPending, startTransition] = useTransition();
 
-
   useEffect(() => {
-    if (!accessToken) {
-      router.push("/login");
+    const jwt = localStorage.getItem("accessToken");
+    if (jwt) {
+      const gu = async () => {
+        await getUserProfile(jwt)
+          .then((res) => {
+            dispatch(authActions.setUserData(res));
+            dispatch(authActions.setAccessToken(jwt));
+            router.push("/profile");
+          })
+          .catch(async (error) => {
+            router.push("/login");
+          });
+      };
+      gu();
     }
-  }, [accessToken, router]);
+  }, [accessToken]);
 
   // Formik configuration
   const formik = useFormik({

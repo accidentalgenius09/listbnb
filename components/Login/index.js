@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React, { useEffect } from "react";
 import styles from "./styles.module.scss";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserProfile } from "../../actions";
 import { authActions } from "../../store/authSlice";
@@ -11,9 +11,7 @@ function Login() {
   const route = useRouter();
   const dispatch = useDispatch();
   const { userData } = useSelector((state) => state.auth);
-  const accessToken = localStorage.getItem("accessToken");
-  const searchParams = useSearchParams();
-  const ts = searchParams.get("ts") || "";
+  const accessToken = useSelector((state) => state.auth.accessToken);
 
 
   function handleLoginClick() {
@@ -38,7 +36,7 @@ function Login() {
       };
       gu();
     }
-  }, [accessToken, route, ts]);
+  }, [accessToken, route]);
 
   return (
     <button
