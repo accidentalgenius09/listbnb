@@ -99,7 +99,7 @@ export default function Home() {
                       onMouseLeave={() => setHoveredCardId(null)}
                       className={`${styles.recommendationCard}`}
                     >
-                      <Button className={`${styles.badgeEdit}`}>Edit Ad</Button>
+                      <button className={`${styles.badgeEdit}`}>Edit Ad</button>
                       <Card.Img
                         src={item.image}
                         alt={item.title}
@@ -135,7 +135,7 @@ export default function Home() {
                       onMouseLeave={() => setHoveredCardId(null)}
                       className={`${styles.recommendationCard}`}
                     >
-                      <Button className={`${styles.badgeEdit}`}>Edit Ad</Button>
+                      <button className={`${styles.badgeEdit}`}>Edit Ad</button>
                       <Card.Img
                         src={item.image}
                         alt={item.title}

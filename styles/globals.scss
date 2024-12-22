@@ -49,3 +49,19 @@ main {
   margin-bottom: 60px; /* Space above Footer */
   padding: 20px;
 }
+input:-webkit-autofill {
+  background-color: var(--background) !important; /* Ensure the background is applied */
+  -webkit-box-shadow: 0 0 0px 1000px var(--background) inset !important; /* Covers autofill's default background */
+  -webkit-text-fill-color: #212529 !important; /* Set text color for autofilled input */
+}
+
+/* Autofill on focus */
+input:-webkit-autofill:focus {
+  background-color: var(--background) !important; /* Keep background the same when focused */
+  -webkit-box-shadow: 0 0 0px 1000px var(--background) inset !important; /* Maintain box shadow */
+}
+
+/* Autofill on blur */
+input:-webkit-autofill:not(:focus) {
+  background-color: var(--background) !important; /* Ensure background stays on blur */
+}

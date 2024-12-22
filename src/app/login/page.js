@@ -153,7 +153,7 @@ export default function Login() {
                   <div className="text-danger">{formik.errors.password}</div>
                 ) : null}
               </Form.Group>
-              <Button
+              <button
                 type="submit"
                 className={`${styles.btnPink} text-center w-100 my-5`}
               >
@@ -166,7 +166,7 @@ export default function Login() {
                     alt={"Right arrow"}
                   />
                 </div>
-              </Button>
+              </button>
             </Form>
           </Container>
         </Col>
@@ -189,7 +189,7 @@ export default function Login() {
               To connect with us please register for a new <br /> account if you
               are not having one already.
             </p>
-            <Button
+            <button
               className={`${styles.btnPink} w-25 mt-2`}
               onClick={handleRegister}
             >
@@ -202,7 +202,7 @@ export default function Login() {
                   alt={"Right arrow"}
                 />
               </div>
-            </Button>
+            </button>
           </div>
         </Col>
       </Row>
